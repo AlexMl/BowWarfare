@@ -2,7 +2,12 @@ package me.Aubli.BowWarfare;
 
 import java.util.UUID;
 
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 public class BowPlayer {
 
@@ -15,7 +20,16 @@ public class BowPlayer {
 	
 	private BowArena arena;
 	
-	public BowPlayer(Player player, BowArena arena){
+	private ItemStack[] content;
+	private ItemStack[] armor;
+	
+	private int totalXP;
+	private GameMode mode;
+	
+	private Location startLoc;
+	private Location clickedLoc;
+	
+	public BowPlayer(Player player, BowArena arena, Location playerLoc){
 		this.player = player;
 		this.uuid = player.getUniqueId();
 		
@@ -23,6 +37,14 @@ public class BowPlayer {
 		this.dead = false;
 		
 		this.arena = arena;	
+		
+		this.clickedLoc = playerLoc.clone();
+		
+		this.content = getPlayer().getInventory().getContents();
+		this.armor = getPlayer().getInventory().getArmorContents();
+		
+		this.totalXP = getPlayer().getTotalExperience();
+		this.mode = getPlayer().getGameMode();
 	}
 	
 	
@@ -34,6 +56,14 @@ public class BowPlayer {
 		return player;
 	}
 	
+	public Location getLocation(){
+		return player.getLocation();
+	}
+	
+	public Location getStartLocation(){
+		return startLoc;
+	}
+	
 	public int getKills(){
 		return kills;
 	}
@@ -43,17 +73,70 @@ public class BowPlayer {
 	}
 	
 	
+	public void setStartLocation(Location location){
+		this.startLoc = location.clone();
+	}
+	
+	public void setXPLevel(int level){
+		getPlayer().setLevel(level);
+	}
+	
+	
 	public boolean isDead(){
 		return dead;
 	}
 	
 	
-	public void reset(){
+	@SuppressWarnings("deprecation")
+	public void reset(){		
+		player.getInventory().clear();
 		
+		player.teleport(clickedLoc, TeleportCause.PLUGIN);
+		player.setVelocity(new Vector(0, 0, 0));
+		
+		player.setHealth(20D);
+		player.setFoodLevel(20);
+		
+		player.setGameMode(mode);
+		player.setTotalExperience(totalXP);
+		
+		player.getInventory().setArmorContents(armor);		
+		player.getInventory().setContents(content);		
+		
+		player.updateInventory();
 	}
 	
-	public void getReady(){
+	@SuppressWarnings("deprecation")
+	public void getReady() throws Exception{
 		
+		if(getStartLocation()!=null){
+			
+			player.getInventory().clear();
+			player.getInventory().setHelmet(null);
+			player.getInventory().setChestplate(null);
+			player.getInventory().setLeggings(null);
+			player.getInventory().setBoots(null);
+			
+			player.setTotalExperience(0);
+			player.setLevel(0);
+			player.setGameMode(GameMode.SURVIVAL);
+			player.resetPlayerTime();
+			player.resetPlayerWeather();
+			
+			player.setHealth(20D);
+			player.setFoodLevel(20);
+			player.resetMaxHealth();
+			
+			player.setFlying(false);
+			player.setWalkSpeed((float) 0.2);
+			player.setFlySpeed((float) 0.2);
+			
+			player.updateInventory();
+			
+			player.teleport(getStartLocation(), TeleportCause.PLUGIN);
+		}else{
+			throw new Exception("Start Location is null!");
+		}		
 	}
 	
 	
