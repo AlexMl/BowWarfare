@@ -15,6 +15,8 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static Logger log = Bukkit.getLogger();
 	
+	public static BowWarfare instance;
+	
 	@Override
 	public void onDisable(){
 		log.info("[" + getDescription().getName() + "] disabled!");
@@ -29,6 +31,8 @@ public class BowWarfare extends JavaPlugin{
 	}
 	
 	private void init(){
+		instance = this;
+		
 		registerListeners();
 	}
 	
@@ -41,4 +45,8 @@ public class BowWarfare extends JavaPlugin{
 		pm.registerEvents(new PlayerInteractListener(), this);
 	}
 	
+	
+	public static BowWarfare getInstance(){
+		return instance;
+	}
 }
