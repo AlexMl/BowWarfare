@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class GameManager {
 	
@@ -20,10 +21,8 @@ public class GameManager {
 	}
 	
 	
-	public GameManager(){
-				
-		arenaFolder = new File(BowWarfare.getInstance().getDataFolder().getPath() + "/Arenas");
-		
+	public GameManager(){				
+		arenaFolder = new File(BowWarfare.getInstance().getDataFolder().getPath() + "/Arenas");		
 		load();		
 	}
 	
@@ -130,15 +129,25 @@ public class GameManager {
 	}
 	
 	
-	public void startArena(BowArena arena){
+	public void createPlayer(Player p, BowArena arena){
 		
+		BowPlayer player = new BowPlayer(p, arena, p.getLocation().clone());
+		
+		arena.addPlayer(player);
+		
+	}
+	
+	public void startArena(BowArena arena){
+		arena.start();
 	}
 	
 	public void stopArena(BowArena arena){
-		
+		arena.stop();
 	}
 	
 	public void stopArenas(){
-		
+		for(BowArena a : arenas){
+			a.stop();
+		}
 	}
 }

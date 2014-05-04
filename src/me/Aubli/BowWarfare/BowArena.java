@@ -149,10 +149,10 @@ public class BowArena {
 	}
 	
 	public void start(){
-		
+		TaskID = new GameRunnable(this).runTaskTimer(BowWarfare.getInstance(), 20L, 20L).getTaskId();
 	}
 	
 	public void stop(){
-		
+		Bukkit.getScheduler().cancelTask(getTaskID());
 	}
 }
