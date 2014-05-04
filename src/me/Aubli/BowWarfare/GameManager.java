@@ -3,6 +3,9 @@ package me.Aubli.BowWarfare;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bukkit.Location;
 
 public class GameManager {
 	
@@ -49,4 +52,66 @@ public class GameManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getNewID(String path){		
+		File folder = new File(path);
+		
+		if(folder.listFiles().length==0){
+			return 1;
+		}else{			
+			int[] fileIds = new int[folder.listFiles().length];
+			
+			for(int i=0;i<fileIds.length;i++){
+				fileIds[i] = Integer.parseInt(folder.listFiles()[i].getName().split(".ym")[0]);
+			}
+			
+			Arrays.sort(fileIds);
+			
+			for(int k=0;k<fileIds.length;k++){
+				if(fileIds[k]!=(k+1)){
+					return (k+1);
+				}
+			}
+			return fileIds.length+1;
+		}		
+	}
+	
+	public boolean createArena(Location min, Location max){
+		if(min.getWorld().equals(max.getWorld())){
+			
+			double tempX;
+			double tempY;		
+			double tempZ;
+			
+			if(min.getX()>max.getX()){
+				tempX = min.getX();
+				min.setX(max.getX());
+				max.setX(tempX);
+			}
+			
+			if(min.getY()>max.getY()){
+				tempY = min.getY();
+				min.setY(max.getY());
+				max.setY(tempY);
+			}
+			
+			if(min.getZ()>max.getZ()){
+				tempZ = min.getZ();
+				min.setZ(max.getZ());
+				max.setZ(tempZ);
+			}			
+			
+			BowArena a = new BowArena(arenaFolder.getPath(), getNewID(arenaFolder.getPath()), min.clone(), max.clone(), BowWarfare.getMaxPlayers(), BowWarfare.getMinPlayers());
+			arenas.add(a);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean removeArena(BowArena arena){
+		arena.delete();
+		return arenas.remove(arena);
+	}
+	
+	
 }

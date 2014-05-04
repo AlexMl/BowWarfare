@@ -98,6 +98,10 @@ public class BowArena {
 		
 		arenaConfig.save(arenaFile);
 	}
+	
+	void delete(){
+		this.arenaFile.delete();
+	}
 
 
 	public int getID(){
