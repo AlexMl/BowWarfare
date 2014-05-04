@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import me.Aubli.BowWarfare.GameManager.ArenaStatus;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -27,7 +29,7 @@ public class BowArena {
 	
 	private int TaskID;
 	
-	private boolean running;	
+	private ArenaStatus status;
 	
 	private ArrayList<BowPlayer> players;
 	
@@ -45,7 +47,7 @@ public class BowArena {
 		this.maxPlayers = maxP;
 		this.minPlayers = minP;
 		
-		this.running = false;
+		status = ArenaStatus.WAITING;
 		
 		players = new ArrayList<BowPlayer>();
 		
@@ -76,7 +78,7 @@ public class BowArena {
 				arenaConfig.getDouble("arena.Location.min.Y"),
 				arenaConfig.getDouble("arena.Location.min.Z"));
 		
-		this.running = false;
+		status = ArenaStatus.WAITING;
 		
 		this.players = new ArrayList<BowPlayer>();		
 	}
@@ -124,19 +126,23 @@ public class BowArena {
 		return TaskID;
 	}
 	
+	public ArenaStatus getStatus(){
+		return status;
+	}
+	
 	
 	public boolean isFull(){
 		return !(players.size()<maxPlayers);
 	}
 	
 	public boolean isRunning(){
-		return running;
+		return getStatus()==ArenaStatus.RUNNING;
 	}
 	
 	
 	public boolean addPlayer(BowPlayer player){
 		
-		if(!isFull()){
+		if(!isFull() && !isRunning()){
 			
 		}
 		return false;

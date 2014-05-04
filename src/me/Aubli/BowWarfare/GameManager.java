@@ -14,6 +14,12 @@ public class GameManager {
 	private ArrayList<BowArena> arenas;
 	
 	
+	public enum ArenaStatus{
+		WAITING,
+		RUNNING,
+	}
+	
+	
 	public GameManager(){
 				
 		arenaFolder = new File(BowWarfare.getInstance().getDataFolder().getPath() + "/Arenas");
