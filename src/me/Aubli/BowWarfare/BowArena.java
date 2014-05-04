@@ -82,7 +82,7 @@ public class BowArena {
 	}
 	
 	
-	private void save() throws IOException{
+	void save() throws IOException{
 		
 		arenaConfig.set("arena.ID", ID);
 		arenaConfig.set("arena.maxP", maxPlayers);
