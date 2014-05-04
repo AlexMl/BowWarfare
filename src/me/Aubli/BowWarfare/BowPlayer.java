@@ -57,4 +57,13 @@ public class BowPlayer {
 	}
 	
 	
+	@Override
+	public boolean equals(Object player){
+		if(player instanceof BowPlayer){
+			BowPlayer p = (BowPlayer) player;
+			return p.getUuid().equals(this.getUuid());
+		}	
+		return false;	
+	}
+	
 }
