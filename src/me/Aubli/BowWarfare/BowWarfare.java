@@ -15,7 +15,7 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static Logger log = Bukkit.getLogger();
 	
-	public static BowWarfare instance;
+	private static BowWarfare instance;
 	
 	private static int maxP;
 	private static int minP;
