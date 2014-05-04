@@ -41,8 +41,7 @@ public class GameManager {
 		}
 	}
 	
-	private void save(){
-		
+	private void save(){		
 		try{
 			for(BowArena a : arenas){
 				a.save();
@@ -75,6 +74,17 @@ public class GameManager {
 			return fileIds.length+1;
 		}		
 	}
+	
+	public BowArena getArena(int ID){
+		
+		for(BowArena a : arenas){
+			if(a.getID()==ID){
+				return a;
+			}
+		}
+		return null;
+	}
+	
 	
 	public boolean createArena(Location min, Location max){
 		if(min.getWorld().equals(max.getWorld())){
@@ -114,4 +124,15 @@ public class GameManager {
 	}
 	
 	
+	public void startArena(BowArena arena){
+		
+	}
+	
+	public void stopArena(BowArena arena){
+		
+	}
+	
+	public void stopArenas(){
+		
+	}
 }

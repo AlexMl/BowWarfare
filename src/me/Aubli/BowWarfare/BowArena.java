@@ -141,4 +141,12 @@ public class BowArena {
 		}
 		return false;
 	}
+	
+	public void start(){
+		
+	}
+	
+	public void stop(){
+		
+	}
 }
