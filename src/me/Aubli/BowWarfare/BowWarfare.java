@@ -17,6 +17,9 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static BowWarfare instance;
 	
+	private static int maxP;
+	private static int minP;
+	
 	@Override
 	public void onDisable(){
 		log.info("[" + getDescription().getName() + "] disabled!");
@@ -34,6 +37,8 @@ public class BowWarfare extends JavaPlugin{
 		instance = this;
 		
 		registerListeners();
+	
+		loadConfig();
 	}
 	
 	private void registerListeners(){
@@ -45,8 +50,29 @@ public class BowWarfare extends JavaPlugin{
 		pm.registerEvents(new PlayerInteractListener(), this);
 	}
 	
+	private void loadConfig(){
+		
+		getConfig().addDefault("config.maxPlayers", 24);
+		getConfig().addDefault("config.minPlayers", 5);
+		
+		maxP = getConfig().getInt("config.maxPlayers");
+		minP = getConfig().getInt("config.minPlayers");
+		
+		
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+	}
+	
 	
 	public static BowWarfare getInstance(){
 		return instance;
+	}
+	
+	public static int getMaxPlayers(){
+		return maxP;
+	}
+	
+	public static int getMinPlayers(){
+		return minP;
 	}
 }
