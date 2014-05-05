@@ -56,6 +56,10 @@ public class BowPlayer {
 		return player;
 	}
 	
+	public String getName(){
+		return getPlayer().getName();
+	}
+	
 	public Location getLocation(){
 		return player.getLocation();
 	}
@@ -139,6 +143,11 @@ public class BowPlayer {
 		}		
 	}
 	
+	
+	@Override
+	public String toString(){
+		return getName();
+	}
 	
 	@Override
 	public boolean equals(Object player){
