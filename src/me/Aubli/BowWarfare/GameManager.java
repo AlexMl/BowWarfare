@@ -33,9 +33,14 @@ public class GameManager {
 	}
 	
 	public void shutdown(){
+		stopArenas();
 		save();
 	}
 	
+	public void reload(){
+		stopArenas();
+		load();
+	}
 	
 	private void load(){
 		arenas = new ArrayList<BowArena>();
@@ -94,6 +99,16 @@ public class GameManager {
 			}
 		}
 		return null;
+	}
+	
+	
+	public boolean isInGame(Player player){
+		for(BowArena a : arenas){
+			if(a.containsPlayer(player)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
