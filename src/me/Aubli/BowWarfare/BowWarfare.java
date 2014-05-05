@@ -22,6 +22,7 @@ public class BowWarfare extends JavaPlugin{
 	
 	@Override
 	public void onDisable(){
+		GameManager.getManager().shutdown();
 		log.info("[" + getDescription().getName() + "] disabled!");
 	}
 	
@@ -35,6 +36,8 @@ public class BowWarfare extends JavaPlugin{
 	
 	private void init(){
 		instance = this;
+		
+		new GameManager();
 		
 		registerListeners();
 	
