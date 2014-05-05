@@ -42,6 +42,8 @@ public class BowWarfare extends JavaPlugin{
 		registerListeners();
 	
 		loadConfig();
+		
+		getCommand("bw").setExecutor(new BowExecuter());
 	}
 	
 	private void registerListeners(){
