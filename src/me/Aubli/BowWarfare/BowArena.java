@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 public class BowArena {
 
@@ -140,10 +141,30 @@ public class BowArena {
 	}
 	
 	
+	public boolean containsPlayer(Player player){
+		return players.contains(player);
+	}
+	
+	public boolean containsLocation(Location location){
+		return ((getMax().getX()>location.getX() && getMin().getX()<location.getX()) && (getMax().getZ()>location.getZ() && getMin().getZ()<location.getZ()));
+	}
+	
+	
 	public boolean addPlayer(BowPlayer player){
 		
-		if(!isFull() && !isRunning()){
-			
+		if(!isFull() && !isRunning() && !players.contains(player)){
+			players.add(player);
+			if(players.size()>=minPlayers){
+				GameManager.getManager().startArena(this);
+			}
+			try {
+				player.setStartLocation(getMin());
+				player.getReady();
+			} catch (Exception e) {				
+				e.printStackTrace();
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
@@ -153,6 +174,12 @@ public class BowArena {
 	}
 	
 	public void stop(){
+		
+		for(BowPlayer p : players){
+			p.reset();
+		}
+		players.clear();
+		
 		Bukkit.getScheduler().cancelTask(getTaskID());
 	}
 }
