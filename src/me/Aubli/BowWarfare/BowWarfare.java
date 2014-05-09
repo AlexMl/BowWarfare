@@ -8,6 +8,7 @@ import me.Aubli.BowWarfare.Listeners.PlayerRespawnListener;
 import me.Aubli.BowWarfare.Listeners.SignChangeListener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,8 @@ public class BowWarfare extends JavaPlugin{
 	
 	private static int maxP;
 	private static int minP;
+	
+	private static String pluginPrefix = ChatColor.DARK_GREEN + "[" + ChatColor.DARK_GRAY + "BowWarfare" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + " ";
 	
 	@Override
 	public void onDisable(){
@@ -79,5 +82,9 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static int getMinPlayers(){
 		return minP;
+	}
+	
+	public static String getPrefix(){
+		return pluginPrefix;
 	}
 }
