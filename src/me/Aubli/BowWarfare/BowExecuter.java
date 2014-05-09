@@ -118,7 +118,11 @@ public class BowExecuter implements CommandExecutor {
 					}
 				}
 				if(playerSender.hasPermission("bw.admin")){
-					if(args[0].equalsIgnoreCase("arena")){				
+					if(args[0].equalsIgnoreCase("arena")){	
+						if(!args[1].equalsIgnoreCase("pos1") && !args[1].equalsIgnoreCase("pos2")){
+							printCommands(playerSender);
+							return true;
+						}
 						if(args[1].equalsIgnoreCase("pos1")){
 							pos.put(1, playerSender.getLocation().clone());
 							playerSender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Position 1 saved!");
@@ -140,6 +144,7 @@ public class BowExecuter implements CommandExecutor {
 								return true;
 							}							
 						}
+						return true;
 					}
 					if(args[0].equalsIgnoreCase("remove")){
 						BowArena a = GameManager.getManager().getArena(Integer.parseInt(args[1]));
@@ -158,6 +163,7 @@ public class BowExecuter implements CommandExecutor {
 						}
 					}
 					printCommands(playerSender);
+					return true;
 				}else{
 					commandDenied(playerSender);
 					return true;
@@ -177,6 +183,9 @@ public class BowExecuter implements CommandExecutor {
 			
 			player.sendMessage(ChatColor.DARK_GREEN + "|–––––––––– " + ChatColor.DARK_GRAY + name + " v" + version + ChatColor.DARK_GREEN + " ––––––––––");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw reload");
+			
+			player.sendMessage(ChatColor.DARK_GREEN + "| /bw stop");
+			player.sendMessage(ChatColor.DARK_GREEN + "| /bw stop [Arena-ID]");
 			
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw arena [pos1|pos2]");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw remove [Arena-ID]");
