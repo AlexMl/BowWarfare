@@ -20,6 +20,8 @@ public class BowWarfare extends JavaPlugin{
 	
 	private static int maxP;
 	private static int minP;
+	private static int COUNTDOWN;
+	private static int GAME_DURATION;
 	
 	private static String pluginPrefix = ChatColor.DARK_GREEN + "[" + ChatColor.DARK_GRAY + "BowWarfare" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + " ";
 	
@@ -60,15 +62,15 @@ public class BowWarfare extends JavaPlugin{
 	
 	private void loadConfig(){
 		
-		getConfig().addDefault("config.maxPlayers", 24);
-		getConfig().addDefault("config.minPlayers", 5);
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		
 		maxP = getConfig().getInt("config.maxPlayers");
 		minP = getConfig().getInt("config.minPlayers");
 		
+		GAME_DURATION = getConfig().getInt("config.times.gameDuration");
+		COUNTDOWN = getConfig().getInt("config.times.countdown");
 		
-		getConfig().options().copyDefaults(true);
-		saveConfig();
 	}
 	
 	
@@ -84,7 +86,17 @@ public class BowWarfare extends JavaPlugin{
 		return minP;
 	}
 	
+	public static int getCountdownTime(){
+		return COUNTDOWN;
+	}
+
+	public static int getGameTime(){
+		return (GAME_DURATION * 60);
+	}
+	
 	public static String getPrefix(){
 		return pluginPrefix;
 	}
+	
+	
 }

@@ -1,0 +1,20 @@
+# Config File for BowWarfare
+
+config:
+# How many Players can play in an Arena.
+# Default: 24
+  maxPlayers: 24
+  
+# How many Players must be in an Arena to start the game.
+# Default: 5
+  minPlayers: 5
+  
+  times:
+  
+     # Countdown until the game will beginn. (in seconds)
+     # Default: 30
+     countdown: 30
+     
+     # How long the game takes. (in minutes)
+     # Default: 10
+     gameDuration: 10 
