@@ -131,6 +131,27 @@ public class BowArena {
 		return status;
 	}
 	
+	public BowPlayer[] getPlayers(){
+		BowPlayer[] p = new BowPlayer[players.size()];
+		
+		for(int i=0;i<players.size();i++){
+			p[i] = players.get(i);
+		}
+		return p;
+	}
+	
+	
+	public void setStatus(ArenaStatus s){
+		this.status = s;
+	}
+	
+	public void setCounter(int second){
+		for(BowPlayer p : getPlayers()){
+			p.setXPLevel(second);
+		}
+	}
+	
+	
 	
 	public boolean isFull(){
 		return !(players.size()<maxPlayers);
@@ -142,7 +163,12 @@ public class BowArena {
 	
 	
 	public boolean containsPlayer(Player player){
-		return players.contains(player);
+		for(BowPlayer p : players){
+			if(p.getPlayer().getUniqueId()==player.getUniqueId()){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean containsLocation(Location location){
@@ -169,11 +195,17 @@ public class BowArena {
 		return false;
 	}
 	
-	public void start(){
+	public void sendMessage(String message){
+		for(BowPlayer p : getPlayers()){
+			p.sendMessage(message);
+		}
+	}
+	
+	void start(){
 		TaskID = new GameRunnable(this).runTaskTimer(BowWarfare.getInstance(), 20L, 20L).getTaskId();
 	}
 	
-	public void stop(){
+	void stop(){
 		
 		for(BowPlayer p : players){
 			p.reset();

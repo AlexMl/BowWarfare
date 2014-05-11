@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
@@ -85,6 +87,9 @@ public class BowPlayer {
 		getPlayer().setLevel(level);
 	}
 	
+	public void sendMessage(String message){
+		getPlayer().sendMessage(message);
+	}
 	
 	public boolean isDead(){
 		return dead;
@@ -134,6 +139,13 @@ public class BowPlayer {
 			player.setFlying(false);
 			player.setWalkSpeed((float) 0.2);
 			player.setFlySpeed((float) 0.2);
+			
+			ItemStack bow = new ItemStack(Material.BOW);
+			bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+			bow.addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+			
+			player.getInventory().addItem(bow);
+			player.getInventory().addItem(new ItemStack(Material.ARROW, 1));
 			
 			player.updateInventory();
 			
