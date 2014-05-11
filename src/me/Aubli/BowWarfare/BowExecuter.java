@@ -32,6 +32,7 @@ public class BowExecuter implements CommandExecutor {
 	 */
 	
 	private HashMap<Integer, Location> pos = new HashMap<Integer, Location>();
+	private GameManager gm = GameManager.getManager();
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -40,21 +41,21 @@ public class BowExecuter implements CommandExecutor {
 			if(cmd.getName().equalsIgnoreCase("bw")){
 				if(args.length==1){
 					if(args[0].equalsIgnoreCase("stop")){
-						GameManager.getManager().stopArenas();
+						gm.stopArenas();
 						sender.sendMessage("All games are stoped!");
 						return true;
 					}
 					if(args[0].equalsIgnoreCase("reload")){
-						GameManager.getManager().reload();
+						gm.reload();
 						sender.sendMessage("Config reloaded!");
 						return true;
 					}
 				}
 				if(args.length==2){
 					if(args[0].equalsIgnoreCase("stop")){
-						BowArena a = GameManager.getManager().getArena(Integer.parseInt(args[1]));
+						BowArena a = gm.getArena(Integer.parseInt(args[1]));
 						if(a!=null){
-							a.stop();
+							gm.stopArena(a);
 							sender.sendMessage("Arena " + args[1] + " stoped!");
 							return true;
 						}else{
@@ -78,7 +79,7 @@ public class BowExecuter implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("reload")){
 					if(playerSender.hasPermission("bw.reload")){
-						GameManager.getManager().reload();
+						gm.reload();
 						playerSender.sendMessage(ChatColor.GREEN + "Config reloaded!");
 						return true;
 					}else{
@@ -88,7 +89,7 @@ public class BowExecuter implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("stop")){
 					if(playerSender.hasPermission("bw.stop.all")){
-						GameManager.getManager().stopArenas();
+						gm.stopArenas();
 						playerSender.sendMessage(ChatColor.DARK_GRAY + "[BW] All Arenas were stoped!");
 						return true;
 					}else{
@@ -106,9 +107,9 @@ public class BowExecuter implements CommandExecutor {
 				
 				if(args[0].equalsIgnoreCase("stop")){
 					if(playerSender.hasPermission("bw.stop")){
-						BowArena a = GameManager.getManager().getArena(Integer.parseInt(args[1]));						
+						BowArena a = gm.getArena(Integer.parseInt(args[1]));						
 						if(a!=null){
-							GameManager.getManager().stopArena(a);
+							gm.stopArena(a);
 							playerSender.sendMessage(ChatColor.DARK_GRAY + "[BW] Arena " + a.getID() + " halted!");
 							return true;
 						}else{
@@ -136,7 +137,7 @@ public class BowExecuter implements CommandExecutor {
 						}
 						
 						if(pos.containsKey(1) && pos.containsKey(2)){
-							boolean success = GameManager.getManager().createArena(pos.get(1), pos.get(2));
+							boolean success = gm.createArena(pos.get(1), pos.get(2));
 							pos.clear();
 							
 							if(success){
@@ -150,9 +151,9 @@ public class BowExecuter implements CommandExecutor {
 						return true;
 					}
 					if(args[0].equalsIgnoreCase("remove")){
-						BowArena a = GameManager.getManager().getArena(Integer.parseInt(args[1]));
+						BowArena a = gm.getArena(Integer.parseInt(args[1]));
 						if(a!=null){
-							boolean success = GameManager.getManager().removeArena(a);
+							boolean success = gm.removeArena(a);
 							if(success){
 								playerSender.sendMessage(ChatColor.GREEN + "Arena removed!");
 								return true;
