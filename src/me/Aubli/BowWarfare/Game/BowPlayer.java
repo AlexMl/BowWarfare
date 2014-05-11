@@ -1,4 +1,4 @@
-package me.Aubli.BowWarfare;
+package me.Aubli.BowWarfare.Game;
 
 import java.util.UUID;
 

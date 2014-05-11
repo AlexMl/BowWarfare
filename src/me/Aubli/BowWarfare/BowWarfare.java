@@ -2,6 +2,7 @@ package me.Aubli.BowWarfare;
 
 import java.util.logging.Logger;
 
+import me.Aubli.BowWarfare.Game.GameManager;
 import me.Aubli.BowWarfare.Listeners.EntityDamageListener;
 import me.Aubli.BowWarfare.Listeners.PlayerInteractListener;
 import me.Aubli.BowWarfare.Listeners.PlayerRespawnListener;

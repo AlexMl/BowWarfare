@@ -2,6 +2,9 @@ package me.Aubli.BowWarfare;
 
 import java.util.HashMap;
 
+import me.Aubli.BowWarfare.Game.BowArena;
+import me.Aubli.BowWarfare.Game.GameManager;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

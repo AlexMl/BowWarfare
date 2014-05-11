@@ -1,9 +1,11 @@
-package me.Aubli.BowWarfare;
+package me.Aubli.BowWarfare.Game;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import me.Aubli.BowWarfare.BowWarfare;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

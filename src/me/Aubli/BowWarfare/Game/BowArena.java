@@ -1,11 +1,12 @@
-package me.Aubli.BowWarfare;
+package me.Aubli.BowWarfare.Game;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import me.Aubli.BowWarfare.GameManager.ArenaStatus;
+import me.Aubli.BowWarfare.BowWarfare;
+import me.Aubli.BowWarfare.Game.GameManager.ArenaStatus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
