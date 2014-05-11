@@ -111,6 +111,17 @@ public class GameManager {
 		return false;
 	}
 	
+	public boolean isInRunningGame(Player player){
+		for(BowArena a : arenas){
+			if(a.containsPlayer(player)){
+				if(a.getStatus()==ArenaStatus.RUNNING){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	public boolean createArena(Location min, Location max){
 		if(min.getWorld().equals(max.getWorld())){
