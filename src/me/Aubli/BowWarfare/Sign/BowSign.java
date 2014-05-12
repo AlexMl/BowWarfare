@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.BowArena;
 import me.Aubli.BowWarfare.Game.GameManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
@@ -94,6 +96,10 @@ public class BowSign {
 	
 	
 	void update(){
-
+		getSign().setLine(0, ChatColor.BOLD + "" + ChatColor.DARK_BLUE + "Bow Warfare");
+		getSign().setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
+		getSign().setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
+		getSign().setLine(3, ChatColor.BOLD + "" + ChatColor.DARK_RED + "Arena " + arena.getID());
+		getSign().update();
 	}
 }
