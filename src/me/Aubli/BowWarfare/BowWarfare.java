@@ -44,12 +44,12 @@ public class BowWarfare extends JavaPlugin{
 	private void init(){
 		instance = this;
 		
+		loadConfig();
+		
 		new GameManager();
 		new SignManager();
 		
 		registerListeners();
-	
-		loadConfig();
 		
 		getCommand("bw").setExecutor(new BowExecuter());
 	}
@@ -65,6 +65,12 @@ public class BowWarfare extends JavaPlugin{
 	
 	private void loadConfig(){
 		
+		getConfig().addDefault("config.minPlayers", 5);
+		getConfig().addDefault("config.maxPlayers", 24);
+		
+		getConfig().addDefault("config.times.countdown", 30);
+		getConfig().addDefault("config.times.gameDuration", 10);
+		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
@@ -72,8 +78,7 @@ public class BowWarfare extends JavaPlugin{
 		minP = getConfig().getInt("config.minPlayers");
 		
 		GAME_DURATION = getConfig().getInt("config.times.gameDuration");
-		COUNTDOWN = getConfig().getInt("config.times.countdown");
-		
+		COUNTDOWN = getConfig().getInt("config.times.countdown");		
 	}
 	
 	
