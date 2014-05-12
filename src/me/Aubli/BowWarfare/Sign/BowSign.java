@@ -40,6 +40,7 @@ public class BowSign {
 		} catch (IOException e) {		
 			e.printStackTrace();
 		}
+		update();
 	}
 	
 	public BowSign(File signFile){
@@ -54,7 +55,7 @@ public class BowSign {
 				signConfig.getInt("sign.location.X"), 
 				signConfig.getInt("sign.location.Y"),
 				signConfig.getInt("sign.location.Z"));
-		
+		update();
 	}
 	
 	void delete(){
@@ -90,16 +91,21 @@ public class BowSign {
 		return signLoc;
 	}
 	
+	public BowArena getArena(){
+		return arena;
+	}
+	
 	public Sign getSign(){
 		return (Sign)getLocation().getBlock().getState();
 	}
 	
 	
 	void update(){
-		getSign().setLine(0, ChatColor.BOLD + "" + ChatColor.DARK_BLUE + "Bow Warfare");
-		getSign().setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
-		getSign().setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
-		getSign().setLine(3, ChatColor.BOLD + "" + ChatColor.DARK_RED + "Arena " + arena.getID());
-		getSign().update();
+		Sign s = getSign();
+		s.setLine(0, ChatColor.BOLD + "" + ChatColor.DARK_BLUE + "Bow Warfare");
+		s.setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
+		s.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
+		s.setLine(3, ChatColor.BOLD + "" + ChatColor.DARK_RED + "Arena " + arena.getID());
+		s.update();
 	}
 }
