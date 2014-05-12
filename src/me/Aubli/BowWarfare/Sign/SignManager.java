@@ -26,7 +26,7 @@ public class SignManager {
 		return manager;
 	}
 	
-	private void load(){
+	public void load(){
 		signs = new ArrayList<BowSign>();
 		signFolder = new File(BowWarfare.getInstance().getDataFolder().getPath() + "/signs");
 		signFolder.mkdirs();
@@ -50,11 +50,38 @@ public class SignManager {
 	}
 	
 	
+	public BowSign getSign(BowArena arena){
+		for(BowSign s : signs){
+			if(s.getArena().equals(arena)){
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	public BowSign getSign(int signID){
+		for(BowSign s : signs){
+			if(s.getID()==signID){
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	public BowSign getSign(Location signLoc){
+		for(BowSign s : signs){
+			if(s.getLocation().equals(signLoc)){
+				return s;
+			}
+		}
+		return null;
+	}
+	
 	public void updateSign(BowSign sign){
 		sign.update();
 	}
 	
-	public void updatedSigns(){
+	public void updateSigns(){
 		for(BowSign s : signs){
 			s.update();
 		}
