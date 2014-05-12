@@ -91,4 +91,9 @@ public class BowSign {
 	public Sign getSign(){
 		return (Sign)getLocation().getBlock().getState();
 	}
+	
+	
+	void update(){
+
+	}
 }

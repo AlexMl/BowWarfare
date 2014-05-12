@@ -47,4 +47,15 @@ public class SignManager {
 		sign.delete();
 		signs.remove(sign);
 	}
+	
+	
+	public void updateSign(BowSign sign){
+		sign.update();
+	}
+	
+	public void updatedSigns(){
+		for(BowSign s : signs){
+			s.update();
+		}
+	}
 }
