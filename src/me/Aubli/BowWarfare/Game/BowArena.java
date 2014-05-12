@@ -215,4 +215,18 @@ public class BowArena {
 		
 		Bukkit.getScheduler().cancelTask(getTaskID());
 	}
+	
+	
+	
+	@Override
+	public boolean equals(Object arena){
+		if(arena instanceof BowArena){
+			BowArena a = (BowArena) arena;
+			if(a.getID() == this.ID && a.getWorld().equals(this.getWorld())){
+				return true;
+			}			
+		}
+		return false;
+	}
+	
 }
