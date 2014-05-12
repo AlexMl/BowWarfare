@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import me.Aubli.BowWarfare.BowWarfare;
+import me.Aubli.BowWarfare.Sign.SignManager;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -42,6 +43,7 @@ public class GameManager {
 	public void reload(){
 		stopArenas();
 		load();
+		SignManager.getManager().load();
 	}
 	
 	private void load(){
@@ -168,7 +170,7 @@ public class GameManager {
 		BowPlayer player = new BowPlayer(p, arena, p.getLocation().clone());
 		
 		arena.addPlayer(player);
-		
+		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
 	public void startArena(BowArena arena){
