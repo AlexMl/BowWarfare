@@ -11,7 +11,7 @@ import me.Aubli.BowWarfare.Game.GameManager;
 
 public class SignManager {
 
-	private SignManager manager;
+	private static SignManager manager;
 	
 	private ArrayList<BowSign> signs;
 	private File signFolder;
@@ -22,7 +22,7 @@ public class SignManager {
 		load();
 	}
 	
-	public SignManager getManager(){
+	public static SignManager getManager(){
 		return manager;
 	}
 	
@@ -38,9 +38,10 @@ public class SignManager {
 	}
 	
 	
-	public void createSign(BowArena arena, Location location){
+	public BowSign createSign(BowArena arena, Location location){
 		BowSign sign = new BowSign(GameManager.getManager().getNewID(signFolder.getPath()), signFolder.getPath(), arena, location);
 		signs.add(sign);
+		return sign;
 	}
 	
 	public void removeSign(BowSign sign){
