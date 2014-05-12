@@ -10,6 +10,7 @@ import me.Aubli.BowWarfare.Game.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -54,6 +55,10 @@ public class BowSign {
 		
 	}
 	
+	void delete(){
+		this.signFile.delete();
+	}
+	
 	private void save() throws IOException{
 		if(!signFile.exists()){
 			signFile.createNewFile();
@@ -68,5 +73,22 @@ public class BowSign {
 		signConfig.set("sign.location.Z", signLoc.getBlockZ());
 		
 		signConfig.save(signFile);
+	}
+	
+	
+	public int getID(){
+		return signID;
+	}
+	
+	public World getWorld(){
+		return world;
+	}
+	
+	public Location getLocation(){
+		return signLoc;
+	}
+	
+	public Sign getSign(){
+		return (Sign)getLocation().getBlock().getState();
 	}
 }
