@@ -1,7 +1,8 @@
 package me.Aubli.BowWarfare.Listeners;
 
-import me.Aubli.BowWarfare.GameManager;
+import me.Aubli.BowWarfare.Game.GameManager;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Arrow;
@@ -22,13 +23,21 @@ public class PlayerInteractListener implements Listener{
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK){
 			if(event.getClickedBlock().getState() instanceof Sign){
 				Sign sign = (Sign)event.getClickedBlock().getState();				
-				if(sign.getLine(0).equalsIgnoreCase("[bw]")){
+				if(ChatColor.stripColor(sign.getLine(0)).equalsIgnoreCase("Bow Warfare")){
 					if(eventPlayer.hasPermission("bw.play")){
-						if(!GameManager.getManager().isInGame(eventPlayer)){
-							if(GameManager.getManager().getArena(Integer.parseInt(sign.getLine(1)))!=null){
-								GameManager.getManager().createPlayer(eventPlayer, GameManager.getManager().getArena(Integer.parseInt(sign.getLine(1))));
+						if(ChatColor.stripColor(sign.getLine(1)).equalsIgnoreCase("[join]")){
+							if(!GameManager.getManager().isInGame(eventPlayer)){
+								if(GameManager.getManager().getArena(Integer.parseInt(ChatColor.stripColor(sign.getLine(3)).split("Arena ")[1]))!=null){
+									GameManager.getManager().createPlayer(eventPlayer, GameManager.getManager().getArena(Integer.parseInt(ChatColor.stripColor(sign.getLine(3)).split("Arena ")[1])));
+									return;
+								}	
+							}else{
+								eventPlayer.sendMessage(ChatColor.RED + "You are already in a game!");
 								return;
-							}	
+							}
+						}else{							
+							eventPlayer.sendMessage(ChatColor.RED + "You can't join this game!");
+							return;
 						}
 					}
 				}				
@@ -42,9 +51,9 @@ public class PlayerInteractListener implements Listener{
 					if(eventPlayer.getItemInHand().getType()==Material.BOW){
 						Vector v = eventPlayer.getEyeLocation().getDirection().multiply(3);
 						eventPlayer.launchProjectile(Arrow.class, v);
-						
 					}
 				}
+				return;
 			}
 		}
 	}
