@@ -102,10 +102,10 @@ public class BowSign {
 	
 	void update(){
 		Sign s = getSign();
-		s.setLine(0, ChatColor.BOLD + "" + ChatColor.DARK_BLUE + "Bow Warfare");
+		s.setLine(0, ChatColor.DARK_BLUE.toString() + "Bow Warfare");
 		s.setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
 		s.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
-		s.setLine(3, ChatColor.BOLD + "" + ChatColor.DARK_RED + "Arena " + arena.getID());
+		s.setLine(3, ChatColor.DARK_RED.toString() + "Arena " + arena.getID());
 		s.update();
 	}
 }
