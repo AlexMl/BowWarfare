@@ -8,10 +8,12 @@ import me.Aubli.BowWarfare.Listeners.PlayerInteractListener;
 import me.Aubli.BowWarfare.Listeners.PlayerRespawnListener;
 import me.Aubli.BowWarfare.Listeners.SignChangeListener;
 import me.Aubli.BowWarfare.Sign.SignManager;
+import me.Aubli.GP.GP;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BowWarfare extends JavaPlugin{
@@ -24,6 +26,8 @@ public class BowWarfare extends JavaPlugin{
 	private static int minP;
 	private static int COUNTDOWN;
 	private static int GAME_DURATION;
+	
+	private static GP gameAPI;
 	
 	private static String pluginPrefix = ChatColor.DARK_GREEN + "[" + ChatColor.DARK_GRAY + "BowWarfare" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + " ";
 	
@@ -38,7 +42,7 @@ public class BowWarfare extends JavaPlugin{
 		
 		init();
 		
-		log.info("[" + getDescription().getName() + "] enabled!");
+		if(gameAPI!=null){log.info("[" + getDescription().getName() + "] enabled!");}
 	}
 	
 	private void init(){
@@ -52,6 +56,8 @@ public class BowWarfare extends JavaPlugin{
 		registerListeners();
 		
 		getCommand("bw").setExecutor(new BowExecuter());
+		
+		registerGP();
 	}
 	
 	private void registerListeners(){
@@ -61,6 +67,26 @@ public class BowWarfare extends JavaPlugin{
 		pm.registerEvents(new PlayerRespawnListener(), this);
 		pm.registerEvents(new EntityDamageListener(), this);
 		pm.registerEvents(new PlayerInteractListener(), this);
+	}
+	
+	private void registerGP(){
+		if(Bukkit.getPluginManager().getPlugin("GP")!=null){			
+			RegisteredServiceProvider<GP> gameProvider = getServer().getServicesManager().getRegistration(GP.class);
+			if (gameProvider != null) {	        					
+	        	gameAPI = gameProvider.getProvider();
+	        	log.info("[HGR] GameProvider was found!");
+	        	return;
+	        }else{
+	        	log.info("[HGR] GameProvider was not found! Make sure you have the newest version!");
+	        	log.info("[HGR] Stoping BowWarfare ...");	        	
+	        	Bukkit.getPluginManager().disablePlugin(this);	        	
+	        }
+		}else{
+			log.info("[HGR] GameProvider is not installed! Make sure you have the newest version!");
+        	log.info("[HGR] Stoping BowWarfare ...");
+        	Bukkit.getPluginManager().disablePlugin(this);
+        	return;
+		}
 	}
 	
 	private void loadConfig(){
@@ -84,6 +110,10 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static BowWarfare getInstance(){
 		return instance;
+	}
+	
+	public static GP getGameAPI(){
+		return gameAPI;
 	}
 	
 	public static int getMaxPlayers(){
