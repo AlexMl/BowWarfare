@@ -3,12 +3,15 @@ package me.Aubli.BowWarfare.Game;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.GameManager.ArenaStatus;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -132,6 +135,17 @@ public class BowArena {
 		return status;
 	}
 	
+	public BowPlayer getPlayer(Player player){
+		if(this.containsPlayer(player)){
+			for(BowPlayer p : getPlayers()){
+				if(p.getPlayer().getUniqueId()==player.getUniqueId()){
+					return p;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public BowPlayer[] getPlayers(){
 		BowPlayer[] p = new BowPlayer[players.size()];
 		
@@ -208,12 +222,30 @@ public class BowArena {
 	
 	void stop(){
 		
-		for(BowPlayer p : players){
-			p.reset();
+		if(isRunning()){
+			Map<String, Integer> playerKills = new HashMap<String, Integer>();
+			
+			for(BowPlayer p : getPlayers()){
+				playerKills.put(p.getUuid().toString(), p.getKills());
+			}
+			
+			System.out.println(playerKills);
+			playerKills = BowWarfare.getGameAPI().sortMap(playerKills);
+			
+			System.out.println(playerKills);
+			
+			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));
+					
+			winner.sendMessage(ChatColor.RED + "Du gewinnst!");
+			
+			for(BowPlayer p : players){
+				p.reset();
+			}
+			players.clear();		
+			
+			Bukkit.getScheduler().cancelTask(getTaskID());
+			setStatus(ArenaStatus.WAITING);
 		}
-		players.clear();
-		
-		Bukkit.getScheduler().cancelTask(getTaskID());
 	}
 	
 	
