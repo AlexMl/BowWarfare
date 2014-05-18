@@ -33,7 +33,10 @@ public class SignManager {
 		
 		for(File f : signFolder.listFiles()){
 			BowSign sign = new BowSign(f);
-			if(sign.getWorld()!=null){signs.add(sign);}
+			if(sign.getWorld()!=null){
+				signs.add(sign);
+				sign.update();
+			}
 		}
 	}
 	

@@ -55,7 +55,6 @@ public class BowSign {
 				signConfig.getInt("sign.location.X"), 
 				signConfig.getInt("sign.location.Y"),
 				signConfig.getInt("sign.location.Z"));
-		update();
 	}
 	
 	void delete(){
