@@ -33,10 +33,12 @@ public class PlayerInteractListener implements Listener{
 								}	
 							}else{
 								eventPlayer.sendMessage(ChatColor.RED + "You are already in a game!");
+								event.setCancelled(true);
 								return;
 							}
 						}else{							
 							eventPlayer.sendMessage(ChatColor.RED + "You can't join this game!");
+							event.setCancelled(true);
 							return;
 						}
 					}
