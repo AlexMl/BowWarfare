@@ -48,7 +48,7 @@ public class SignChangeListener implements Listener{
 					return;
 				}	
 			}else{
-				event.getPlayer().sendMessage(ChatColor.RED + "Line 2 has to be 'join'\nLine 3 has to be the arena id!");
+				event.getPlayer().sendMessage(ChatColor.RED + "Line 2 has to be the arena id!");
 				event.setCancelled(true);
 				return;
 			}
