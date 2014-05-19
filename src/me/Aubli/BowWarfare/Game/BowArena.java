@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.GameManager.ArenaStatus;
+import me.Aubli.BowWarfare.Sign.SignManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -158,6 +159,7 @@ public class BowArena {
 	
 	public void setStatus(ArenaStatus s){
 		this.status = s;
+		SignManager.getManager().updateSign(SignManager.getManager().getSign(this));
 	}
 	
 	public void setCounter(int second){
@@ -210,6 +212,19 @@ public class BowArena {
 		return false;
 	}
 	
+	public boolean removePlayer(BowPlayer player){		
+		if(players.contains(player)){
+			players.remove(player);
+			player.reset();
+			if(isRunning() && getPlayers().length==0){
+				GameManager.getManager().stopArena(this);
+			}
+			return true;
+		}
+		return false;		
+	}
+	
+	
 	public void sendMessage(String message){
 		for(BowPlayer p : getPlayers()){
 			p.sendMessage(message);
@@ -217,12 +232,12 @@ public class BowArena {
 	}
 	
 	void start(){
-		TaskID = new GameRunnable(this).runTaskTimer(BowWarfare.getInstance(), 20L, 20L).getTaskId();
+		TaskID = new GameRunnable(this).runTaskTimer(BowWarfare.getInstance(), 0L, 20L).getTaskId();
 	}
 	
 	void stop(){
 		
-		if(isRunning()){
+		if(isRunning() && getPlayers().length>0){
 			Map<String, Integer> playerKills = new HashMap<String, Integer>();
 			
 			for(BowPlayer p : getPlayers()){
@@ -236,13 +251,34 @@ public class BowArena {
 			
 			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));
 					
-			winner.sendMessage(ChatColor.RED + "Du gewinnst!");
+			winner.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN  + "You have won!! " + ChatColor.BOLD + "Congrats!");
 			
+			removePlayer(getPlayer(winner));			
+			sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + winner.getName() + " has won!! " + ChatColor.BOLD + "Congrats!");
+						
 			for(BowPlayer p : players){
 				p.reset();
 			}
 			players.clear();		
 			
+			Bukkit.getScheduler().cancelTask(getTaskID());
+			setStatus(ArenaStatus.WAITING);
+			
+		}else if(isRunning()){
+						
+			for(BowPlayer p : players){
+				p.reset();
+			}
+			players.clear();		
+			
+			Bukkit.getScheduler().cancelTask(getTaskID());
+			setStatus(ArenaStatus.WAITING);
+		}else{
+			
+			for(BowPlayer p : players){
+				p.reset();
+			}
+			players.clear();
 			Bukkit.getScheduler().cancelTask(getTaskID());
 			setStatus(ArenaStatus.WAITING);
 		}
