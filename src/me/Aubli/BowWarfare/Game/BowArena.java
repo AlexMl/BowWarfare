@@ -251,10 +251,10 @@ public class BowArena {
 			
 			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));
 					
-			winner.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN  + "You have won!! " + ChatColor.BOLD + "Congrats!");
+			winner.sendMessage(BowWarfare.getPrefix() + ChatColor.GOLD  + "You have won!! " + ChatColor.BOLD + "Congrats!");
 			
 			removePlayer(getPlayer(winner));			
-			sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + winner.getName() + " has won!! " + ChatColor.BOLD + "Congrats!");
+			sendMessage(BowWarfare.getPrefix() + ChatColor.GOLD + "Player " + ChatColor.BLUE + winner.getName() + ChatColor.GOLD + " has won!! " + ChatColor.BOLD + "Congrats!");
 						
 			for(BowPlayer p : players){
 				p.reset();
