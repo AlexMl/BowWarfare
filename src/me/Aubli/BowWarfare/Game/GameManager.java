@@ -8,6 +8,7 @@ import java.util.Arrays;
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Sign.SignManager;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -105,9 +106,18 @@ public class GameManager {
 		return null;
 	}
 	
+	public BowArena getArena(Player player){
+		for(BowArena a : arenas){
+			if(a.containsPlayer(player)){
+				return a;
+			}
+		}
+		return null;
+	}
+	
 	
 	public boolean isInGame(Player player){
-		for(BowArena a : arenas){
+		for(BowArena a : arenas){			
 			if(a.containsPlayer(player)){
 				return true;
 			}
@@ -168,17 +178,32 @@ public class GameManager {
 	public void createPlayer(Player p, BowArena arena){
 		
 		BowPlayer player = new BowPlayer(p, arena, p.getLocation().clone());
-		
-		arena.addPlayer(player);
+		arena.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + player.getName() + " has joined the Game!");
+		player.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "You have joined the Game!");
+		arena.addPlayer(player);		
 		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
+	public boolean removePlayer(Player player){		
+		if(getArena(player)!=null){			
+			BowArena arena = getArena(player);		
+			boolean success = arena.removePlayer(arena.getPlayer(player));
+			if(success){arena.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + player.getName() + " has left the Game!");}
+			SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
+			return success;
+		}
+		return false;
+	}
+	
+	
 	public void startArena(BowArena arena){
 		arena.start();
+		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
 	public void stopArena(BowArena arena){
 		arena.stop();
+		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
 	public void stopArenas(){
