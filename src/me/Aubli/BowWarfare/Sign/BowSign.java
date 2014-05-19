@@ -7,6 +7,7 @@ import java.util.UUID;
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.BowArena;
 import me.Aubli.BowWarfare.Game.GameManager;
+import me.Aubli.BowWarfare.Game.GameManager.ArenaStatus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -105,6 +106,10 @@ public class BowSign {
 		s.setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
 		s.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
 		s.setLine(3, ChatColor.DARK_RED.toString() + "Arena " + arena.getID());
+		
+		if(getArena()!=null && getArena().getStatus()==ArenaStatus.RUNNING){
+			s.setLine(1, ChatColor.DARK_AQUA + "" + ChatColor.ITALIC + "[RUNNING]");	
+		}		
 		s.update();
 	}
 }
