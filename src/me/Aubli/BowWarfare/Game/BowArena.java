@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import me.Aubli.BowWarfare.BowWarfare;
@@ -128,6 +129,26 @@ public class BowArena {
 		return max.clone();
 	}
 	
+	public Location getNewRandomStartLoc(){
+		
+		int x;
+		int y;
+		int z;
+		
+		Random rand = new Random();		
+		x = rand.nextInt((getMax().getBlockX()-getMin().getBlockX()-1)) + getMin().getBlockX() + 1;
+		y = getMin().getBlockY();
+		z = rand.nextInt((getMax().getBlockZ()-getMin().getBlockZ()-1)) + getMin().getBlockZ() + 1;
+		
+		Location startLoc = new Location(getWorld(), x, y, z);
+		
+		if(containsLocation(startLoc)){
+			return startLoc.clone();
+		}else{
+			return getNewRandomStartLoc();
+		}
+	}
+	
 	public int getTaskID(){
 		return TaskID;
 	}
@@ -189,7 +210,7 @@ public class BowArena {
 	}
 	
 	public boolean containsLocation(Location location){
-		return ((getMax().getX()>location.getX() && getMin().getX()<location.getX()) && (getMax().getZ()>location.getZ() && getMin().getZ()<location.getZ()));
+		return ((getMax().getX()>=location.getX() && getMin().getX()<=location.getX()) && (getMax().getZ()>=location.getZ() && getMin().getZ()<=location.getZ()));
 	}
 	
 	
@@ -201,7 +222,7 @@ public class BowArena {
 				GameManager.getManager().startArena(this);
 			}
 			try {
-				player.setStartLocation(getMin());
+				player.setStartLocation(getNewRandomStartLoc());
 				player.getReady();
 			} catch (Exception e) {				
 				e.printStackTrace();
@@ -245,8 +266,7 @@ public class BowArena {
 			}
 			
 			System.out.println(playerKills);
-			playerKills = BowWarfare.getGameAPI().sortMap(playerKills);
-			
+			playerKills = BowWarfare.getGameAPI().sortMap(playerKills);			
 			System.out.println(playerKills);
 			
 			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));

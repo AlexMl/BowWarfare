@@ -36,7 +36,7 @@ public class EntityDamageListener implements Listener{
 							killer.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GREEN + "You killed " + ChatColor.GOLD + victim.getName() + ChatColor.DARK_RED + "!!");
 							killer.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GREEN + "You have now " + ChatColor.DARK_PURPLE + killer.getKills() + ChatColor.DARK_GREEN + " Kills!!");
 							
-							victim.teleport(victim.getArenaStartLocation());
+							victim.teleport(arena.getNewRandomStartLoc());
 							victim.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "You were killed by " + ChatColor.GOLD + killer.getName() + ChatColor.DARK_RED + "!!");						
 							return;
 						}
