@@ -257,7 +257,7 @@ public class BowArena {
 	}
 	
 	void stop(){
-		
+			
 		if(isRunning() && getPlayers().length>0){
 			Map<String, Integer> playerKills = new HashMap<String, Integer>();
 			
@@ -275,6 +275,13 @@ public class BowArena {
 			
 			removePlayer(getPlayer(winner));			
 			sendMessage(BowWarfare.getPrefix() + ChatColor.GOLD + "Player " + ChatColor.BLUE + winner.getName() + ChatColor.GOLD + " has won!! " + ChatColor.BOLD + "Congrats!");
+		
+			Bukkit.getScheduler().runTaskLater(BowWarfare.getInstance(), new Runnable() {			
+				@Override
+				public void run() {
+					BowArena.this.setStatus(ArenaStatus.WAITING);				
+				}
+			}, 5*20L);
 		}
 		
 		for(BowPlayer p : players){
@@ -284,13 +291,6 @@ public class BowArena {
 		
 		Bukkit.getScheduler().cancelTask(getTaskID());
 		setStatus(ArenaStatus.SUSPEND);
-		
-		Bukkit.getScheduler().runTaskLater(BowWarfare.getInstance(), new Runnable() {			
-			@Override
-			public void run() {
-				BowArena.this.setStatus(ArenaStatus.WAITING);				
-			}
-		}, 5*20L);
 	}
 	
 	
