@@ -29,12 +29,12 @@ public class BowWarfare extends JavaPlugin{
 	
 	private static GP gameAPI;
 	
-	private static String pluginPrefix = ChatColor.DARK_GREEN + "[" + ChatColor.DARK_GRAY + "BowWarfare" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + " ";
+	private static String pluginPrefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "BW" + ChatColor.GOLD + "]" + ChatColor.RESET + " ";
 	
 	@Override
 	public void onDisable(){
 		GameManager.getManager().shutdown();
-		log.info("[" + getDescription().getName() + "] disabled!");
+		log.info("[" + getDescription().getName() + "] Plugin disabled!");
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class BowWarfare extends JavaPlugin{
 		
 		init();
 		
-		if(gameAPI!=null){log.info("[" + getDescription().getName() + "] enabled!");}
+		if(gameAPI!=null){log.info("[" + getDescription().getName() + "] Plugin enabled!");}
 	}
 	
 	private void init(){
@@ -74,16 +74,16 @@ public class BowWarfare extends JavaPlugin{
 			RegisteredServiceProvider<GP> gameProvider = getServer().getServicesManager().getRegistration(GP.class);
 			if (gameProvider != null) {	        					
 	        	gameAPI = gameProvider.getProvider();
-	        	log.info("[HGR] GameProvider was found!");
+	        	log.info("[" + getDescription().getName() + "] GameProvider was found!");
 	        	return;
 	        }else{
-	        	log.info("[HGR] GameProvider was not found! Make sure you have the newest version!");
-	        	log.info("[HGR] Stoping BowWarfare ...");	        	
+	        	log.info("[" + getDescription().getName() + "] GameProvider was not found! Make sure you have the newest version!");
+	        	log.info("[" + getDescription().getName() + "] Stoping " + getDescription().getName() + " ...");	        	
 	        	Bukkit.getPluginManager().disablePlugin(this);	        	
 	        }
 		}else{
-			log.info("[HGR] GameProvider is not installed! Make sure you have the newest version!");
-        	log.info("[HGR] Stoping BowWarfare ...");
+			log.info("[" + getDescription().getName() + "] GameProvider is not installed! Make sure you have the newest version!");
+        	log.info("[" + getDescription().getName() + "] Stoping " + getDescription().getName() + " ...");
         	Bukkit.getPluginManager().disablePlugin(this);
         	return;
 		}
