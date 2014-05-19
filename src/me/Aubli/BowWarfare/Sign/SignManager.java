@@ -81,7 +81,9 @@ public class SignManager {
 	}
 	
 	public void updateSign(BowSign sign){
-		sign.update();
+		if(sign!=null){
+			sign.update();
+		}
 	}
 	
 	public void updateSigns(){
