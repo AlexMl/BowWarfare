@@ -66,8 +66,12 @@ public class BowPlayer {
 		return player.getLocation();
 	}
 	
-	public Location getStartLocation(){
+	public Location getArenaStartLocation(){
 		return startLoc;
+	}
+	
+	public Location getOriginStartLocation(){
+		return clickedLoc;
 	}
 	
 	public int getKills(){
@@ -76,7 +80,7 @@ public class BowPlayer {
 	
 	public BowArena getArena(){
 		return arena;
-	}
+	}	
 	
 	
 	public void setStartLocation(Location location){
@@ -91,10 +95,23 @@ public class BowPlayer {
 		getPlayer().sendMessage(message);
 	}
 	
+	
 	public boolean isDead(){
 		return dead;
 	}
 	
+	public void teleport(Location location){
+		getPlayer().teleport(location, TeleportCause.PLUGIN);
+	}
+	
+	public void addKill(BowPlayer victim){
+		this.kills++;
+		victim.kill();
+	}
+	
+	private void kill(){
+		this.dead = true;
+	}
 	
 	@SuppressWarnings("deprecation")
 	public void reset(){		
@@ -118,7 +135,7 @@ public class BowPlayer {
 	@SuppressWarnings("deprecation")
 	public void getReady() throws Exception{
 		
-		if(getStartLocation()!=null){
+		if(getArenaStartLocation()!=null){
 			
 			player.getInventory().clear();
 			player.getInventory().setHelmet(null);
@@ -127,6 +144,7 @@ public class BowPlayer {
 			player.getInventory().setBoots(null);
 			
 			player.setTotalExperience(0);
+			player.setExp(0F);
 			player.setLevel(0);
 			player.setGameMode(GameMode.SURVIVAL);
 			player.resetPlayerTime();
@@ -149,7 +167,7 @@ public class BowPlayer {
 			
 			player.updateInventory();
 			
-			player.teleport(getStartLocation(), TeleportCause.PLUGIN);
+			player.teleport(getArenaStartLocation(), TeleportCause.PLUGIN);
 		}else{
 			throw new Exception("Start Location is null!");
 		}		
