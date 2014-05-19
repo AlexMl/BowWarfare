@@ -3,11 +3,9 @@ package me.Aubli.BowWarfare.Listeners;
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.BowArena;
 import me.Aubli.BowWarfare.Game.GameManager;
-import me.Aubli.BowWarfare.Sign.BowSign;
 import me.Aubli.BowWarfare.Sign.SignManager;
 
 import org.bukkit.ChatColor;
-import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -26,14 +24,12 @@ public class SignChangeListener implements Listener{
 							int arenaID = Integer.parseInt(event.getLine(2));
 							BowArena arena = GameManager.getManager().getArena(arenaID);
 							if(arena!=null){
-								BowSign sign = SignManager.getManager().createSign(arena, event.getBlock().getLocation());
-								Sign s = sign.getSign();
+								SignManager.getManager().createSign(arena, event.getBlock().getLocation());
 								
-								s.setLine(0, ChatColor.DARK_BLUE.toString() + "Bow Warfare");
-								s.setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
-								s.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
-								s.setLine(3, ChatColor.DARK_RED + "Arena " + arena.getID());
-								s.update();
+								event.setLine(0, ChatColor.DARK_BLUE.toString() + "Bow Warfare");
+								event.setLine(1, ChatColor.LIGHT_PURPLE + "[JOIN]");
+								event.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
+								event.setLine(3, ChatColor.DARK_RED + "Arena " + arena.getID());
 								
 								event.getPlayer().sendMessage(ChatColor.GREEN + "Sign Created!");
 								return;
