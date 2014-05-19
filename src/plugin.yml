@@ -1,6 +1,8 @@
 name: BowWarfare
 version: 0.1
 Author: Aubli
+softdepend: [GP]
+loadbefore: [GP]
 
 main: me.Aubli.BowWarfare.BowWarfare
 
