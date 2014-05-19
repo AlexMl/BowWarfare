@@ -23,6 +23,8 @@ public class GameManager {
 	public enum ArenaStatus{
 		WAITING,
 		RUNNING,
+		SUSPEND,
+		;
 	}
 	
 	

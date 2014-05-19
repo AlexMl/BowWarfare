@@ -109,7 +109,10 @@ public class BowSign {
 		
 		if(getArena()!=null && getArena().getStatus()==ArenaStatus.RUNNING){
 			s.setLine(1, ChatColor.DARK_AQUA + "" + ChatColor.ITALIC + "[RUNNING]");	
-		}		
+		}
+		if(getArena()!=null && getArena().getStatus()==ArenaStatus.SUSPEND){
+			s.setLine(1, ChatColor.DARK_RED + "" + ChatColor.ITALIC + "[RESTART]");	
+		}
 		s.update();
 	}
 }
