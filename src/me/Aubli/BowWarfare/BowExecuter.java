@@ -24,8 +24,7 @@ public class BowExecuter implements CommandExecutor {
 	 *   
 	 *  /bw remove [arenaID]
 	 *  
-	 *  
-	 *  
+	 *  /bw start [ID]
 	 *  
 	 *  /bw stop [ID]
 	 *  /bw stop
@@ -37,7 +36,7 @@ public class BowExecuter implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if(!(sender instanceof Player)){			
+		if(!(sender instanceof Player)){			//Console commands
 			if(cmd.getName().equalsIgnoreCase("bw")){
 				if(args.length==1){
 					if(args[0].equalsIgnoreCase("stop")){
@@ -68,6 +67,7 @@ public class BowExecuter implements CommandExecutor {
 			return true;
 		}		
 		
+		//Player commands		
 		Player playerSender = (Player)sender;
 		
 		if(cmd.getName().equalsIgnoreCase("bw")){
@@ -87,6 +87,24 @@ public class BowExecuter implements CommandExecutor {
 						return true;
 					}
 				}
+				
+				if(args[0].equalsIgnoreCase("leave")){
+					if(playerSender.hasPermission("bw.play")){
+						boolean success = gm.removePlayer(playerSender);
+						
+						if(success){
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "You have left the game!");
+							return true;
+						}else{
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "You are not in a Game!");
+							return true;
+						}						
+					}else{
+						commandDenied(playerSender);
+						return true;
+					}
+				}
+				
 				if(args[0].equalsIgnoreCase("stop")){
 					if(playerSender.hasPermission("bw.stop.all")){
 						gm.stopArenas();
@@ -185,22 +203,23 @@ public class BowExecuter implements CommandExecutor {
 			String version = BowWarfare.getInstance().getDescription().getVersion();
 			String name = BowWarfare.getInstance().getDescription().getName();
 			
-			player.sendMessage(ChatColor.DARK_GREEN + "|–––––––––– " + ChatColor.DARK_GRAY + name + " v" + version + ChatColor.DARK_GREEN + " ––––––––––");
+			player.sendMessage(ChatColor.DARK_GREEN + "|----------- " + ChatColor.GRAY + name + " v" + version + ChatColor.DARK_GREEN + " -----------");
+			player.sendMessage(ChatColor.DARK_GREEN + "| /bw help");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw reload");
-			
+			player.sendMessage(ChatColor.DARK_GRAY + "|-------------------------------------");
+			player.sendMessage(ChatColor.DARK_GREEN + "| /bw leave");
+			player.sendMessage(ChatColor.DARK_GRAY + "|-------------------------------------");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw stop");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw stop [Arena-ID]");
-			
+			player.sendMessage(ChatColor.DARK_GRAY + "|-------------------------------------");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw arena [pos1|pos2]");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw remove [Arena-ID]");
-			
-			
 		}else{
 			commandDenied(player);
 		}
 	}
 	
-	private void commandDenied(Player player){
+	public static void commandDenied(Player player){
 		player.sendMessage(ChatColor.DARK_RED + "You do not have permissions for that!");
 	}
 
