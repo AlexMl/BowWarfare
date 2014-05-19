@@ -6,7 +6,6 @@ import me.Aubli.BowWarfare.Game.GameManager;
 import me.Aubli.BowWarfare.Listeners.BlockListener;
 import me.Aubli.BowWarfare.Listeners.EntityDamageListener;
 import me.Aubli.BowWarfare.Listeners.PlayerInteractListener;
-import me.Aubli.BowWarfare.Listeners.PlayerRespawnListener;
 import me.Aubli.BowWarfare.Listeners.SignChangeListener;
 import me.Aubli.BowWarfare.Sign.SignManager;
 import me.Aubli.GP.GP;
@@ -65,7 +64,6 @@ public class BowWarfare extends JavaPlugin{
 		PluginManager pm = Bukkit.getPluginManager();
 		
 		pm.registerEvents(new SignChangeListener(), this);
-		pm.registerEvents(new PlayerRespawnListener(), this);
 		pm.registerEvents(new EntityDamageListener(), this);
 		pm.registerEvents(new PlayerInteractListener(), this);
 		pm.registerEvents(new BlockListener(), this);
