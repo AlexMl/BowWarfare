@@ -138,7 +138,23 @@ public class BowExecuter implements CommandExecutor {
 						commandDenied(playerSender);
 						return true;
 					}
+				}				
+				if(args[0].equalsIgnoreCase("start")){
+					if(playerSender.hasPermission("bw.start")){
+						BowArena a = gm.getArena(Integer.parseInt(args[1]));						
+						if(a!=null){
+							gm.startArena(a);
+							return true;
+						}else{
+							playerSender.sendMessage(ChatColor.RED + "Arena is not available!");
+							return true;
+						}
+					}else{
+						commandDenied(playerSender);
+						return true;
+					}
 				}
+				
 				if(playerSender.hasPermission("bw.admin")){
 					if(args[0].equalsIgnoreCase("arena")){	
 						if(!args[1].equalsIgnoreCase("pos1") && !args[1].equalsIgnoreCase("pos2")){
