@@ -218,7 +218,7 @@ public class BowArena {
 		
 		if(!isFull() && !isRunning() && !players.contains(player)){
 			players.add(player);
-			if(players.size()>=minPlayers){
+			if(players.size()==minPlayers){
 				GameManager.getManager().startArena(this);
 			}
 			try {
