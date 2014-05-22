@@ -1,4 +1,4 @@
-bowwarfare
+BowWarfare
 ==========
 
 A Bow Game for Bukkit based Servers
