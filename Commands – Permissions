@@ -3,9 +3,9 @@
 /bw arena pos1						bw.admin
 /bw arena pos2						bw.admin
 /bw remove [arenaID]				bw.admin
+/bw start [ID]						bw.start
 /bw stop [ID]						bw.stop
 /bw stop							bw.stop.all
-
 
 
 Play the game						bw.play
