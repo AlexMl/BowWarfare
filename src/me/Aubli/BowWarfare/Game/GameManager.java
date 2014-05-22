@@ -44,7 +44,7 @@ public class GameManager {
 	}
 	
 	public void reload(){
-		stopArenas();
+		restartArenas();
 		load();
 		SignManager.getManager().load();
 	}
@@ -209,17 +209,25 @@ public class GameManager {
 	
 	public void startArena(BowArena arena){
 		arena.start();
-		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
 	public void stopArena(BowArena arena){
 		arena.stop();
-		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
 	}
 	
 	public void stopArenas(){
 		for(BowArena a : arenas){
 			a.stop();
+		}
+	}
+	
+	public void restartArena(BowArena arena){
+		arena.restart();
+	}	
+	
+	public void restartArenas(){
+		for(BowArena a : arenas){
+			a.restart();
 		}
 	}
 }

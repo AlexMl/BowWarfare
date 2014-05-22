@@ -43,7 +43,7 @@ public class BowExecuter implements CommandExecutor {
 			if(cmd.getName().equalsIgnoreCase("bw")){
 				if(args.length==1){
 					if(args[0].equalsIgnoreCase("stop")){
-						gm.stopArenas();
+						gm.restartArenas();
 						sender.sendMessage("[BW] All games are stoped!");
 						return true;
 					}
@@ -57,7 +57,7 @@ public class BowExecuter implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("stop")){
 						BowArena a = gm.getArena(Integer.parseInt(args[1]));
 						if(a!=null){
-							gm.stopArena(a);
+							gm.restartArena(a);
 							sender.sendMessage("[BW] Arena " + args[1] + " stoped!");
 							return true;
 						}else{
@@ -134,7 +134,7 @@ public class BowExecuter implements CommandExecutor {
 				
 				if(args[0].equalsIgnoreCase("stop")){
 					if(playerSender.hasPermission("bw.stop.all")){
-						gm.stopArenas();
+						gm.restartArenas();
 						playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GRAY + "[BW] All Arenas were stoped!");
 						return true;
 					}else{
@@ -154,7 +154,7 @@ public class BowExecuter implements CommandExecutor {
 					if(playerSender.hasPermission("bw.stop")){
 						BowArena a = gm.getArena(Integer.parseInt(args[1]));						
 						if(a!=null){
-							gm.stopArena(a);
+							gm.restartArena(a);
 							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GRAY + "[BW] Arena " + a.getID() + " halted!");
 							return true;
 						}else{
