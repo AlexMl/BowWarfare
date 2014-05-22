@@ -275,14 +275,14 @@ public class BowArena {
 			
 			removePlayer(getPlayer(winner));			
 			sendMessage(BowWarfare.getPrefix() + ChatColor.GOLD + "Player " + ChatColor.BLUE + winner.getName() + ChatColor.GOLD + " has won!! " + ChatColor.BOLD + "Congrats!");
-		
-			Bukkit.getScheduler().runTaskLater(BowWarfare.getInstance(), new Runnable() {			
-				@Override
-				public void run() {
-					BowArena.this.setStatus(ArenaStatus.WAITING);				
-				}
-			}, 5*20L);
 		}
+		
+		Bukkit.getScheduler().runTaskLater(BowWarfare.getInstance(), new Runnable() {			
+			@Override
+			public void run() {
+				BowArena.this.setStatus(ArenaStatus.WAITING);				
+			}
+		}, 5*20L);
 		
 		for(BowPlayer p : players){
 			p.reset();
