@@ -30,15 +30,15 @@ public class SignChangeListener implements Listener{
 							event.setLine(2, ChatColor.GREEN + "" + arena.getPlayers().length + " / " + BowWarfare.getMaxPlayers());
 							event.setLine(3, ChatColor.DARK_RED + "Arena " + arena.getID());
 								
-							event.getPlayer().sendMessage(ChatColor.GREEN + "Sign Created!");
+							event.getPlayer().sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Sign Created!");
 							return;
 						}else{
-							event.getPlayer().sendMessage(ChatColor.RED + "This arena is not available!");
+							event.getPlayer().sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "This arena is not available!");
 							event.setCancelled(true);
 							return;
 						}
 					}catch(NumberFormatException e){
-						event.getPlayer().sendMessage(ChatColor.RED + "Only numbers are acceptable!");
+						event.getPlayer().sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Only numbers are acceptable!");
 						event.setCancelled(true);
 						return;
 					}
@@ -48,7 +48,7 @@ public class SignChangeListener implements Listener{
 					return;
 				}	
 			}else{
-				event.getPlayer().sendMessage(ChatColor.RED + "Line 2 has to be the arena id!");
+				event.getPlayer().sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Line 2 has to be the arena id!");
 				event.setCancelled(true);
 				return;
 			}

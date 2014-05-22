@@ -1,5 +1,6 @@
 package me.Aubli.BowWarfare.Listeners;
 
+import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.GameManager;
 
 import org.bukkit.ChatColor;
@@ -32,12 +33,12 @@ public class PlayerInteractListener implements Listener{
 									return;
 								}	
 							}else{
-								eventPlayer.sendMessage(ChatColor.RED + "You are already in a game!");
+								eventPlayer.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "You are already in a game!");
 								event.setCancelled(true);
 								return;
 							}
 						}else{							
-							eventPlayer.sendMessage(ChatColor.RED + "You can't join this game!");
+							eventPlayer.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "You can't join this game!");
 							event.setCancelled(true);
 							return;
 						}

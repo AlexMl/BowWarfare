@@ -41,12 +41,12 @@ public class BowExecuter implements CommandExecutor {
 				if(args.length==1){
 					if(args[0].equalsIgnoreCase("stop")){
 						gm.stopArenas();
-						sender.sendMessage("All games are stoped!");
+						sender.sendMessage("[BW] All games are stoped!");
 						return true;
 					}
 					if(args[0].equalsIgnoreCase("reload")){
 						gm.reload();
-						sender.sendMessage("Config reloaded!");
+						sender.sendMessage("[BW] Config reloaded!");
 						return true;
 					}
 				}
@@ -55,10 +55,10 @@ public class BowExecuter implements CommandExecutor {
 						BowArena a = gm.getArena(Integer.parseInt(args[1]));
 						if(a!=null){
 							gm.stopArena(a);
-							sender.sendMessage("Arena " + args[1] + " stoped!");
+							sender.sendMessage("[BW] Arena " + args[1] + " stoped!");
 							return true;
 						}else{
-							sender.sendMessage("Arena " + args[1] + " is not available!");
+							sender.sendMessage("[BW] Arena " + args[1] + " is not available!");
 							return true;
 						}
 					}
@@ -80,7 +80,7 @@ public class BowExecuter implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("reload")){
 					if(playerSender.hasPermission("bw.reload")){
 						gm.reload();
-						playerSender.sendMessage(ChatColor.GREEN + "Config reloaded!");
+						playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Config reloaded!");
 						return true;
 					}else{
 						commandDenied(playerSender);
@@ -108,7 +108,7 @@ public class BowExecuter implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("stop")){
 					if(playerSender.hasPermission("bw.stop.all")){
 						gm.stopArenas();
-						playerSender.sendMessage(ChatColor.DARK_GRAY + "[BW] All Arenas were stoped!");
+						playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GRAY + "[BW] All Arenas were stoped!");
 						return true;
 					}else{
 						commandDenied(playerSender);
@@ -128,10 +128,10 @@ public class BowExecuter implements CommandExecutor {
 						BowArena a = gm.getArena(Integer.parseInt(args[1]));						
 						if(a!=null){
 							gm.stopArena(a);
-							playerSender.sendMessage(ChatColor.DARK_GRAY + "[BW] Arena " + a.getID() + " halted!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.DARK_GRAY + "[BW] Arena " + a.getID() + " halted!");
 							return true;
 						}else{
-							playerSender.sendMessage(ChatColor.RED + "Arena is not available!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Arena is not available!");
 							return true;
 						}
 					}else{
@@ -146,7 +146,7 @@ public class BowExecuter implements CommandExecutor {
 							gm.startArena(a);
 							return true;
 						}else{
-							playerSender.sendMessage(ChatColor.RED + "Arena is not available!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Arena is not available!");
 							return true;
 						}
 					}else{
@@ -163,11 +163,11 @@ public class BowExecuter implements CommandExecutor {
 						}
 						if(args[1].equalsIgnoreCase("pos1")){
 							pos.put(1, playerSender.getLocation().clone());
-							playerSender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Position 1 saved!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Position 1 saved!");
 						}
 						if(args[1].equalsIgnoreCase("pos2")){
 							pos.put(2, playerSender.getLocation().clone());
-							playerSender.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Position 2 saved!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Position 2 saved!");
 						}
 						
 						if(pos.containsKey(1) && pos.containsKey(2)){
@@ -175,10 +175,10 @@ public class BowExecuter implements CommandExecutor {
 							pos.clear();
 							
 							if(success){
-								playerSender.sendMessage(ChatColor.GREEN + "Arena created!");
+								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "" + ChatColor.BOLD+ "Arena created!");
 								return true;
 							}else{
-								playerSender.sendMessage(ChatColor.RED + "Job failed!");
+								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Job failed!");
 								return true;
 							}							
 						}
@@ -189,14 +189,14 @@ public class BowExecuter implements CommandExecutor {
 						if(a!=null){
 							boolean success = gm.removeArena(a);
 							if(success){
-								playerSender.sendMessage(ChatColor.GREEN + "Arena removed!");
+								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Arena removed!");
 								return true;
 							}else{
-								playerSender.sendMessage(ChatColor.RED + "Job failed!");
+								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Job failed!");
 								return true;
 							}	
 						}else{
-							playerSender.sendMessage(ChatColor.RED + "Arena is not available!");
+							playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Arena is not available!");
 							return true;
 						}
 					}

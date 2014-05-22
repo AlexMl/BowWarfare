@@ -38,9 +38,8 @@ public class BowWarfare extends JavaPlugin{
 	}
 	
 	@Override
-	public void onEnable(){
-		
-		init();
+	public void onEnable(){		
+		init();	
 		
 		if(gameAPI!=null){log.info("[" + getDescription().getName() + "] Plugin enabled!");}
 	}
@@ -134,7 +133,6 @@ public class BowWarfare extends JavaPlugin{
 	
 	public static String getPrefix(){
 		return pluginPrefix;
-	}
-	
+	}	
 	
 }
