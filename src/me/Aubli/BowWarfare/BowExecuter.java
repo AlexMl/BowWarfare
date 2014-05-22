@@ -47,7 +47,7 @@ public class BowExecuter implements CommandExecutor {
 						sender.sendMessage("[BW] All games are stoped!");
 						return true;
 					}
-					if(args[0].equalsIgnoreCase("reload")){
+					if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")){
 						gm.reload();
 						sender.sendMessage("[BW] Config reloaded!");
 						return true;
@@ -81,7 +81,7 @@ public class BowExecuter implements CommandExecutor {
 					printCommands(playerSender);
 					return true;
 				}
-				if(args[0].equalsIgnoreCase("reload")){
+				if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")){
 					if(playerSender.hasPermission("bw.reload")){
 						gm.reload();
 						playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Config reloaded!");
