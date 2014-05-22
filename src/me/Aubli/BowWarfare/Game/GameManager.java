@@ -180,7 +180,7 @@ public class GameManager {
 	public void createPlayer(Player p, BowArena arena){
 		
 		BowPlayer player = new BowPlayer(p, arena, p.getLocation().clone());
-		arena.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + player.getName() + " has joined the Game!");
+		arena.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Player " + ChatColor.GOLD + player.getName() + ChatColor.GREEN + " has joined the Game!");
 		player.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "You have joined the Game!");
 		arena.addPlayer(player);		
 		SignManager.getManager().updateSign(SignManager.getManager().getSign(arena));
