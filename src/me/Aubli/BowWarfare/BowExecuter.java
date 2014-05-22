@@ -1,6 +1,7 @@
 package me.Aubli.BowWarfare;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import me.Aubli.BowWarfare.Game.BowArena;
 import me.Aubli.BowWarfare.Game.GameManager;
@@ -84,6 +85,29 @@ public class BowExecuter implements CommandExecutor {
 					if(playerSender.hasPermission("bw.reload")){
 						gm.reload();
 						playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "Config reloaded!");
+						return true;
+					}else{
+						commandDenied(playerSender);
+						return true;
+					}
+				}
+				if(args[0].equalsIgnoreCase("list")){
+					if(playerSender.hasPermission("bw.list")){
+						String version = BowWarfare.getInstance().getDescription().getVersion();
+						String name = BowWarfare.getInstance().getDescription().getName();						
+						
+						playerSender.sendMessage(ChatColor.DARK_GREEN + "\n|----------- " + ChatColor.GRAY + name + " v" + version + ChatColor.DARK_GREEN + " -----------");
+						
+						Map<BowArena, Integer> arenas = new HashMap<BowArena, Integer>();						
+						for(BowArena a : gm.getArenas()){
+							arenas.put(a, a.getID());
+						}						
+						arenas = BowWarfare.getGameAPI().sortMap(arenas);	
+						
+						for(BowArena a : arenas.keySet()){
+							playerSender.sendMessage(ChatColor.DARK_GREEN + "| Arena-ID:" + ChatColor.DARK_GRAY + a.getID() + ChatColor.DARK_GREEN + " Status:" + ChatColor.DARK_GRAY + a.getStatus().toString() + ChatColor.DARK_GREEN + " Player:"  + ChatColor.DARK_GRAY + a.getPlayers().length);
+						}
+						
 						return true;
 					}else{
 						commandDenied(playerSender);
@@ -225,6 +249,7 @@ public class BowExecuter implements CommandExecutor {
 			player.sendMessage(ChatColor.DARK_GREEN + "|----------- " + ChatColor.GRAY + name + " v" + version + ChatColor.DARK_GREEN + " -----------");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw help");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw reload");
+			player.sendMessage(ChatColor.DARK_GREEN + "| /bw list");
 			player.sendMessage(ChatColor.DARK_GRAY + "|-------------------------------------");
 			player.sendMessage(ChatColor.DARK_GREEN + "| /bw leave");
 			player.sendMessage(ChatColor.DARK_GRAY + "|-------------------------------------");

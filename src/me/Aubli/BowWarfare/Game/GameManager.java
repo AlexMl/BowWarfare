@@ -117,6 +117,15 @@ public class GameManager {
 		return null;
 	}
 	
+	public BowArena[] getArenas(){
+		BowArena[] arenaArray = new BowArena[arenas.size()];
+		
+		for(int i=0;i<arenas.size();i++){
+			arenaArray[i] = arenas.get(i);
+		}
+		return arenaArray;		
+	}
+	
 	
 	public boolean isInGame(Player player){
 		for(BowArena a : arenas){			
