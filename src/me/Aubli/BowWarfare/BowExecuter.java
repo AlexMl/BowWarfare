@@ -18,6 +18,7 @@ public class BowExecuter implements CommandExecutor {
 	 *	Commands: 
 	 *
 	 *  /bw reload
+	 *  /bw help
 	 *
 	 * 	/bw arena pos1
 	 *  /bw arena pos2
@@ -36,6 +37,7 @@ public class BowExecuter implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
+		//Console commands
 		if(!(sender instanceof Player)){			//Console commands
 			if(cmd.getName().equalsIgnoreCase("bw")){
 				if(args.length==1){
@@ -66,6 +68,7 @@ public class BowExecuter implements CommandExecutor {
 			}
 			return true;
 		}		
+		
 		
 		//Player commands		
 		Player playerSender = (Player)sender;
@@ -171,11 +174,11 @@ public class BowExecuter implements CommandExecutor {
 						}
 						
 						if(pos.containsKey(1) && pos.containsKey(2)){
-							boolean success = gm.createArena(pos.get(1), pos.get(2));
+							BowArena arena = gm.createArena(pos.get(1), pos.get(2));
 							pos.clear();
 							
-							if(success){
-								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "" + ChatColor.BOLD+ "Arena created!");
+							if(arena!=null){
+								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.GREEN + "" + ChatColor.BOLD + "Arena " + arena.getID() + " created!");
 								return true;
 							}else{
 								playerSender.sendMessage(BowWarfare.getPrefix() + ChatColor.RED + "Job failed!");

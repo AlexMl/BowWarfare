@@ -139,7 +139,7 @@ public class GameManager {
 	}
 	
 	
-	public boolean createArena(Location min, Location max){
+	public BowArena createArena(Location min, Location max){
 		if(min.getWorld().equals(max.getWorld())){
 			
 			double tempX;
@@ -166,9 +166,9 @@ public class GameManager {
 			
 			BowArena a = new BowArena(arenaFolder.getPath(), getNewID(arenaFolder.getPath()), min.clone(), max.clone(), BowWarfare.getMaxPlayers(), BowWarfare.getMinPlayers());
 			arenas.add(a);
-			return true;
+			return a;
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean removeArena(BowArena arena){
