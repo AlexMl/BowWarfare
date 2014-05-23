@@ -20,6 +20,7 @@ public class BowExecuter implements CommandExecutor {
 	 *
 	 *  /bw reload
 	 *  /bw help
+	 *  /bw list
 	 *
 	 * 	/bw arena pos1
 	 *  /bw arena pos2
@@ -39,7 +40,7 @@ public class BowExecuter implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		//Console commands
-		if(!(sender instanceof Player)){			//Console commands
+		if(!(sender instanceof Player)){
 			if(cmd.getName().equalsIgnoreCase("bw")){
 				if(args.length==1){
 					if(args[0].equalsIgnoreCase("stop")){
