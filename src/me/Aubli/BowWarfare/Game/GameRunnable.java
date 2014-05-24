@@ -35,12 +35,12 @@ public class GameRunnable extends BukkitRunnable{
 			arena.setCounter((countdown+gameTime)-i);
 		
 			if(arena.getPlayers().length<2){
-				game.stopArena(arena);
+				game.restartArena(arena);
 			}
 			
 			
 		}else if(i>=(gameTime+countdown)){
-			game.stopArena(arena);
+			game.restartArena(arena);
 		}
 		i++;
 	}

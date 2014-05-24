@@ -238,7 +238,7 @@ public class BowArena {
 			players.remove(player);
 			player.reset();
 			if(isRunning() && getPlayers().length==0){
-				GameManager.getManager().stopArena(this);
+				GameManager.getManager().restartArena(this);
 			}
 			return true;
 		}
@@ -285,6 +285,8 @@ public class BowArena {
 					BowArena.this.setStatus(ArenaStatus.WAITING);				
 				}
 			}, 5*20L);
+		}else {
+			setStatus(ArenaStatus.WAITING);
 		}
 		
 		for(BowPlayer p : players){
@@ -292,8 +294,7 @@ public class BowArena {
 		}
 		players.clear();		
 		
-		Bukkit.getScheduler().cancelTask(getTaskID());		
-		setStatus(ArenaStatus.SUSPEND);
+		Bukkit.getScheduler().cancelTask(getTaskID());	
 	}	
 	
 	public void restart(){

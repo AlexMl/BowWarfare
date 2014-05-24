@@ -211,10 +211,6 @@ public class GameManager {
 		arena.start();
 	}
 	
-	public void stopArena(BowArena arena){
-		arena.stop();
-	}
-	
 	public void stopArenas(){
 		for(BowArena a : arenas){
 			a.stop();
