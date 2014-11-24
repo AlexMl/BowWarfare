@@ -1,8 +1,7 @@
 name: BowWarfare
-version: 0.9
+version: 1.0B1
+description: BowGame with infinite arrows.
 Author: Aubli
-softdepend: [GP]
-loadbefore: [GP]
 
 main: me.Aubli.BowWarfare.BowWarfare
 
