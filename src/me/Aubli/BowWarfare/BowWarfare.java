@@ -1,7 +1,7 @@
 package me.Aubli.BowWarfare;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import me.Aubli.BowWarfare.Game.GameManager;
 import me.Aubli.BowWarfare.Listeners.BlockListener;
@@ -14,11 +14,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.util.Logger.PluginOutput;
 import org.util.Metrics.Metrics;
 
 public class BowWarfare extends JavaPlugin{
 	
-	public static Logger log = Bukkit.getLogger();
+	public static PluginOutput log;
 	
 	private static BowWarfare instance;
 	
@@ -28,25 +29,28 @@ public class BowWarfare extends JavaPlugin{
 	private static int GAME_DURATION;
 	
 	private boolean useMetrics;
+	private boolean debugMode;
+	private int logLevel;
 	
 	private static String pluginPrefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "BW" + ChatColor.GOLD + "]" + ChatColor.RESET + " ";
 	
 	@Override
 	public void onDisable(){
 		GameManager.getManager().shutdown();
-		log.info("[" + getDescription().getName() + "] Plugin disabled!");
+		log.log("Plugin disabled!");
 	}
 	
 	@Override
 	public void onEnable(){		
 		init();	
-		log.info("[" + getDescription().getName() + "] Plugin enabled!");
+		log.log("Plugin enabled!");
 	}
 	
 	private void init(){
 		instance = this;
 		
 		loadConfig();
+		log = new PluginOutput(instance, debugMode, logLevel);
 		
 		new GameManager();
 		new SignManager();
@@ -60,7 +64,7 @@ public class BowWarfare extends JavaPlugin{
 			    Metrics metrics = new Metrics(this);
 			    metrics.start();			   
 			} catch (IOException e) {
-				log.info(String.format("[%s] Can't start Metrics! Skip!", getDescription().getName()));
+				log.log(Level.WARNING, "Can't start Metrics! Skip!" , false, e);
 			}
 		}
 	}
@@ -77,8 +81,12 @@ public class BowWarfare extends JavaPlugin{
 	private void loadConfig(){
 		
 		getConfig().addDefault("plugin.enableMetrics", true);
-	
-		useMetrics = getConfig().getBoolean("plugin.enableMetrics");
+		getConfig().addDefault("plugin.debugMode", false);
+		getConfig().addDefault("plugin.loglevel", Level.FINE.intValue());
+		
+		useMetrics = getConfig().getBoolean("plugin.enableMetrics");		
+		debugMode = getConfig().getBoolean("plugin.debugMode");
+		logLevel = getConfig().getInt("plugin.loglevel");
 		
 		getConfig().addDefault("game.minPlayers", 5);
 		getConfig().addDefault("game.maxPlayers", 24);
