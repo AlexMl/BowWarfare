@@ -19,6 +19,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.util.SortMap.SortMap;
 
 public class BowArena {
 
@@ -266,7 +267,7 @@ public class BowArena {
 			}
 			
 			System.out.println(playerKills);
-			playerKills = BowWarfare.getGameAPI().sortMap(playerKills);			
+			playerKills = SortMap.sortByValue(playerKills);			
 			System.out.println(playerKills);
 			
 			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));

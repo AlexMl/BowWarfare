@@ -12,6 +12,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.util.SortMap.SortMap;
 
 public class BowExecuter implements CommandExecutor {
 
@@ -103,7 +104,7 @@ public class BowExecuter implements CommandExecutor {
 						for(BowArena a : gm.getArenas()){
 							arenas.put(a, a.getID());
 						}						
-						arenas = BowWarfare.getGameAPI().sortMap(arenas);	
+						arenas = SortMap.sortByValue(arenas);	
 						
 						for(BowArena a : arenas.keySet()){
 							playerSender.sendMessage(ChatColor.DARK_GREEN + "| Arena-ID:" + ChatColor.DARK_GRAY + a.getID() + ChatColor.DARK_GREEN + " Status:" + ChatColor.DARK_GRAY + a.getStatus().toString() + ChatColor.DARK_GREEN + " Player:"  + ChatColor.DARK_GRAY + a.getPlayers().length);
