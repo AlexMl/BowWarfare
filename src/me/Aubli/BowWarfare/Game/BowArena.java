@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import me.Aubli.BowWarfare.BowWarfare;
 import me.Aubli.BowWarfare.Game.GameManager.ArenaStatus;
@@ -229,6 +230,7 @@ public class BowArena {
 				e.printStackTrace();
 				return false;
 			}
+			BowWarfare.getPluginLog().log(Level.INFO, "Player " + player.getName() + " joined arena " + getID() + "!", true);
 			return true;
 		}
 		return false;
@@ -251,10 +253,12 @@ public class BowArena {
 		for(BowPlayer p : getPlayers()){
 			p.sendMessage(message);
 		}
+		BowWarfare.getPluginLog().log(Level.FINEST, "[Message Arena " + getID() + "] " + message, true);
 	}
 	
 	void start(){
 		TaskID = new GameRunnable(this).runTaskTimer(BowWarfare.getInstance(), 0L, 20L).getTaskId();
+		BowWarfare.getPluginLog().log(Level.INFO, "Arena " + getID() + " started!", true);
 	}
 	
 	void stop(){
@@ -266,9 +270,9 @@ public class BowArena {
 				playerKills.put(p.getUuid().toString(), p.getKills());
 			}
 			
-			System.out.println(playerKills);
-			playerKills = SortMap.sortByValue(playerKills);			
-			System.out.println(playerKills);
+			BowWarfare.getPluginLog().log(Level.FINER, playerKills.toString(), true);			
+			playerKills = SortMap.sortByValue(playerKills);		
+			BowWarfare.getPluginLog().log(Level.FINER, playerKills.toString(), true);
 			
 			Player winner = Bukkit.getPlayer(UUID.fromString(playerKills.entrySet().toArray()[playerKills.size()-1].toString().split("=")[0]));
 					
@@ -295,7 +299,8 @@ public class BowArena {
 		}
 		players.clear();		
 		
-		Bukkit.getScheduler().cancelTask(getTaskID());	
+		Bukkit.getScheduler().cancelTask(getTaskID());
+		BowWarfare.getPluginLog().log(Level.INFO, "Arena " + getID() + " stopped with no errors!", true);
 	}	
 	
 	public void restart(){

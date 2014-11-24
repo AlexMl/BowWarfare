@@ -109,6 +109,10 @@ public class BowWarfare extends JavaPlugin{
 		return instance;
 	}
 	
+	public static PluginOutput getPluginLog() {
+		return log;
+	}
+	
 	public static int getMaxPlayers(){
 		return maxP;
 	}
