@@ -1,5 +1,6 @@
 package me.Aubli.BowWarfare;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import me.Aubli.BowWarfare.Game.GameManager;
@@ -13,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.util.Metrics.Metrics;
 
 public class BowWarfare extends JavaPlugin{
 	
@@ -24,6 +26,8 @@ public class BowWarfare extends JavaPlugin{
 	private static int minP;
 	private static int COUNTDOWN;
 	private static int GAME_DURATION;
+	
+	private boolean useMetrics;
 	
 	private static String pluginPrefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "BW" + ChatColor.GOLD + "]" + ChatColor.RESET + " ";
 	
@@ -50,6 +54,15 @@ public class BowWarfare extends JavaPlugin{
 		registerListeners();
 		
 		getCommand("bw").setExecutor(new BowExecuter());
+		
+		if(useMetrics==true){
+			try {
+			    Metrics metrics = new Metrics(this);
+			    metrics.start();			   
+			} catch (IOException e) {
+				log.info(String.format("[%s] Can't start Metrics! Skip!", getDescription().getName()));
+			}
+		}
 	}
 	
 	private void registerListeners(){
@@ -63,20 +76,24 @@ public class BowWarfare extends JavaPlugin{
 	
 	private void loadConfig(){
 		
-		getConfig().addDefault("config.minPlayers", 5);
-		getConfig().addDefault("config.maxPlayers", 24);
+		getConfig().addDefault("plugin.enableMetrics", true);
+	
+		useMetrics = getConfig().getBoolean("plugin.enableMetrics");
 		
-		getConfig().addDefault("config.times.countdown", 30);
-		getConfig().addDefault("config.times.gameDuration", 10);
+		getConfig().addDefault("game.minPlayers", 5);
+		getConfig().addDefault("game.maxPlayers", 24);
+		
+		getConfig().addDefault("game.times.countdown", 30);
+		getConfig().addDefault("game.times.gameDuration", 10);
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
-		maxP = getConfig().getInt("config.maxPlayers");
-		minP = getConfig().getInt("config.minPlayers");
+		maxP = getConfig().getInt("game.maxPlayers");
+		minP = getConfig().getInt("game.minPlayers");
 		
-		GAME_DURATION = getConfig().getInt("config.times.gameDuration");
-		COUNTDOWN = getConfig().getInt("config.times.countdown");		
+		GAME_DURATION = getConfig().getInt("game.times.gameDuration");
+		COUNTDOWN = getConfig().getInt("game.times.countdown");		
 	}
 	
 	
