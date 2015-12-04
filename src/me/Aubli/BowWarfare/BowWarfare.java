@@ -1,6 +1,5 @@
 package me.Aubli.BowWarfare;
 
-import java.io.IOException;
 import java.util.logging.Level;
 
 import me.Aubli.BowWarfare.Game.GameManager;
@@ -15,7 +14,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.util.Logger.PluginOutput;
-import org.util.Metrics.Metrics;
 
 public class BowWarfare extends JavaPlugin{
 	
@@ -28,7 +26,6 @@ public class BowWarfare extends JavaPlugin{
 	private static int COUNTDOWN;
 	private static int GAME_DURATION;
 	
-	private boolean useMetrics;
 	private boolean debugMode;
 	private int logLevel;
 	
@@ -58,15 +55,6 @@ public class BowWarfare extends JavaPlugin{
 		registerListeners();
 		
 		getCommand("bw").setExecutor(new BowExecuter());
-		
-		if(useMetrics==true){
-			try {
-			    Metrics metrics = new Metrics(this);
-			    metrics.start();			   
-			} catch (IOException e) {
-				log.log(Level.WARNING, "Can't start Metrics! Skip!" , false, e);
-			}
-		}
 	}
 	
 	private void registerListeners(){
@@ -80,11 +68,9 @@ public class BowWarfare extends JavaPlugin{
 	
 	private void loadConfig(){
 		
-		getConfig().addDefault("plugin.enableMetrics", true);
 		getConfig().addDefault("plugin.debugMode", false);
 		getConfig().addDefault("plugin.loglevel", Level.FINE.intValue());
 		
-		useMetrics = getConfig().getBoolean("plugin.enableMetrics");		
 		debugMode = getConfig().getBoolean("plugin.debugMode");
 		logLevel = getConfig().getInt("plugin.loglevel");
 		
